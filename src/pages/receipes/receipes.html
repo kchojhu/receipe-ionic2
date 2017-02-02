@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="onNewReceipe()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Recipes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let receipe of receipes; let i = index"
+    (click)="onLoadReceipe()">
+      <h2>{{ receipe.title }}</h2>
+      <ion-note>{{ receipe.difficult }}</ion-note>
+    </button>
+  </ion-list>
+
+</ion-content>
