@@ -18,6 +18,7 @@ export class ReceipesPage {
 
   ionViewWillEnter() {
     this.receipes = this.receipesService.getReceipes();
+    console.log(this.receipes);
   }
 
   onNewReceipe() {

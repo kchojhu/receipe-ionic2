@@ -13,10 +13,12 @@ export class ReceipesService {
   }
 
   updateReceipe(index: number, title: string, description:string, difficulty:string, ingredients: Ingredient[]) {
+
     this.receipes[index] = new Receipe(title, description, difficulty, ingredients);
+    console.log(this.receipes);
   }
 
   removeReceipe(index: number) {
-    this.receipes.slice(index, 1);
+    this.receipes.splice(index, 1);
   }
 }

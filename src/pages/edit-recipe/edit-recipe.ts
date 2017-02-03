@@ -47,6 +47,7 @@ export class EditRecipePage implements OnInit {
     }
 
     if (this.mode === 'Edit') {
+      console.log('Update Receipe');
       this.receipeService.updateReceipe(this.index, value.title, value.description, value.difficulty, ingredients);
     } else {
       this.receipeService.addReceipe(value.title, value.description, value.difficulty, ingredients);
@@ -152,6 +153,7 @@ export class EditRecipePage implements OnInit {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'Edit') {
       this.receipe = this.navParams.get('receipe');
+      this.index = this.navParams.get('index');
     }
     this.initializeForm();
   }
