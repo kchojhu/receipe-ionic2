@@ -15,7 +15,7 @@
 <ion-content padding>
   <ion-list>
     <button ion-item *ngFor="let receipe of receipes; let i = index"
-    (click)="onLoadReceipe()">
+    (click)="onLoadReceipe(receipe, i)">
       <h2>{{ receipe.title }}</h2>
       <ion-note>{{ receipe.difficult }}</ion-note>
     </button>

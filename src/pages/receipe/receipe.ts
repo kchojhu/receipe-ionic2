@@ -1,22 +1,29 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {Receipe} from "../../models/receipe.model";
+import {EditRecipePage} from "../edit-recipe/edit-recipe";
 
-/*
-  Generated class for the Receipe page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-receipe',
   templateUrl: 'receipe.html'
 })
-export class ReceipePage {
+export class ReceipePage implements OnInit{
+  receipe: Receipe;
+  index: number;
+  constructor(private navCtrl: NavController, private navParams: NavParams) {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  ngOnInit(): void {
+    this.receipe = this.navParams.get('receipe');
+    this.index = this.navParams.get('index')
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceipePage');
+  }
+
+  onEditReceipe() {
+    this.navCtrl.push(EditRecipePage, {
+      mode: 'Edit',
+      receipe: this.receipe,
+      index: this.index
+    })
   }
 
 }

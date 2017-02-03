@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {NavController, NavParams, ActionSheetController, AlertController, ToastController} from "ionic-angular";
 import {FormGroup, FormControl, Validators, FormArray} from "@angular/forms";
 import {ReceipesService} from "../../services/receipes.service";
+import {Receipe} from "../../models/receipe.model";
 
 @Component({
   selector: 'page-edit-recipe',
@@ -10,13 +11,28 @@ import {ReceipesService} from "../../services/receipes.service";
 export class EditRecipePage implements OnInit {
   mode = 'New';
   receipeForm: FormGroup;
-
+  receipe: Receipe;
+  index: number;
   private initializeForm() {
+    let title = null;
+    let description = null;
+    let difficulty = 'Medium';
+    let ingredients = [];
+
+    if (this.mode === 'Edit') {
+      title = this.receipe.title;
+      description = this.receipe.description;
+      difficulty = this.receipe.difficulty;
+      for (let ingredient of this.receipe.ingredients) {
+        ingredients.push(new FormControl(ingredient.name, Validators.required));
+      }
+    }
+
     this.receipeForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
-      'description': new FormControl(null, Validators.required),
-      'difficulty': new FormControl('Medium', Validators.required),
-      'ingredients': new FormArray([])
+      'title': new FormControl(title, Validators.required),
+      'description': new FormControl(description, Validators.required),
+      'difficulty': new FormControl(difficulty, Validators.required),
+      'ingredients': new FormArray(ingredients)
     });
   }
 
@@ -29,7 +45,13 @@ export class EditRecipePage implements OnInit {
         return {name: name, amount: 1};
       })
     }
-    this.receipeService.addReceipe(value.title, value.description, value.difficulty, ingredients);
+
+    if (this.mode === 'Edit') {
+      this.receipeService.updateReceipe(this.index, value.title, value.description, value.difficulty, ingredients);
+    } else {
+      this.receipeService.addReceipe(value.title, value.description, value.difficulty, ingredients);
+    }
+
     this.receipeForm.reset();
     this.navCtrl.popToRoot();
   }
@@ -128,6 +150,9 @@ export class EditRecipePage implements OnInit {
 
   ngOnInit(): void {
     this.mode = this.navParams.get('mode');
+    if (this.mode === 'Edit') {
+      this.receipe = this.navParams.get('receipe');
+    }
     this.initializeForm();
   }
 }

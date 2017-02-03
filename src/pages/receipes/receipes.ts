@@ -26,4 +26,10 @@ export class ReceipesPage {
     });
   }
 
+  onLoadReceipe(receipe: Receipe, index: number) {
+    this.navCtrl.push(ReceipePage, {
+      receipe: receipe,
+      index: index
+    });
+  }
 }
