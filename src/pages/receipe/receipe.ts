@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, PopoverController, LoadingController, AlertController} from 'ionic-angular';
 import {Receipe} from "../../models/receipe.model";
 import {EditRecipePage} from "../edit-recipe/edit-recipe";
 import {ShoppingListService} from "../../services/shopping-list.service";
@@ -43,5 +43,9 @@ export class ReceipePage implements OnInit{
     this.receipeService.removeReceipe(this.index);
     this.navCtrl.popToRoot();
   }
+
+
+
+
 
 }
